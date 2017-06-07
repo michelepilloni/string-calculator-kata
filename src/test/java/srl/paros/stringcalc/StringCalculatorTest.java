@@ -80,4 +80,11 @@ public class StringCalculatorTest {
             assertEquals(nnnae.getMessage(), e.getMessage());
         }
     }
+
+    @Test
+    public void ignoreBigNumbers() {
+        int result = stringCalculator.add("1,9,2000,1001,3");
+
+        assertEquals(1 + 9 + 3, result);
+    }
 }
