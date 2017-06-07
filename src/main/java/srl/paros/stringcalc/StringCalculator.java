@@ -1,8 +1,5 @@
 package srl.paros.stringcalc;
 
-import srl.paros.stringcalc.exceptions.ExceptionsMessages;
-import srl.paros.stringcalc.exceptions.MalformedParametersException;
-
 /**
  * Created by michele.pilloni on 07/06/2017.
  */
@@ -13,9 +10,6 @@ public class StringCalculator {
             return 0;
 
         String[] splitted = numbers.split(",");
-
-        if (splitted.length > 2)
-            throw new MalformedParametersException(ExceptionsMessages.PARAMETERS_NR_GT_2);
 
         int result = 0;
 
