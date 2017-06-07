@@ -18,6 +18,6 @@ public class NegativeNumbersNotAllowedException extends MalformedParametersExcep
             if (i != negativeNumbers.size() - 1)
                 exMsg += ", ";
         }
-        return exMsg;
+        return String.format(ExceptionsMessages.PARAMETERS_NEGATIVES_NOT_ALLOWED, exMsg);
     }
 }
