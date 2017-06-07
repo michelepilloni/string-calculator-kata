@@ -44,4 +44,11 @@ public class StringCalculatorTest {
 
         assertEquals(1 + 9 + 6 + 7 + 3, result);
     }
+
+    @Test
+    public void handleAlsoNewlineAsDelimiter() {
+        int result = stringCalculator.add("1\n2,3,7\n8\n9,5");
+
+        assertEquals(1 + 2 + 3 + 7 + 8 + 9 + 5, result);
+    }
 }

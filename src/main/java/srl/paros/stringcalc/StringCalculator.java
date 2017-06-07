@@ -28,5 +28,4 @@ public class StringCalculator {
             return 0;
         }
     }
-
 }
