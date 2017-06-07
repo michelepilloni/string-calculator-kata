@@ -1,5 +1,12 @@
 package srl.paros.stringcalc;
 
+import srl.paros.stringcalc.exceptions.ExceptionsMessages;
+import srl.paros.stringcalc.exceptions.MalformedParametersException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by michele.pilloni on 07/06/2017.
  */
@@ -9,18 +16,37 @@ public class StringCalculator {
     private final static String CUSTOM_DELIMITER_START_TOKEN = "//";
     private final static String CUSTOM_DELIMITER_END_TOKEN = "\n";
 
-    public int add(String numbers) {
-        if (numbers == null || numbers.isEmpty())
+    public int add(String parameters) {
+        if (parameters == null || parameters.isEmpty())
             return 0;
 
-        String[] splitted = getSplittedParameters(numbers);
+        List<Integer> numbersToAdd = getNumbersToAdd(parameters);
+
+        List<Integer> negativeNumbers = numbersToAdd.stream().filter(nr -> nr < 0).collect(Collectors.toList());
+
+        if (!negativeNumbers.isEmpty()) {
+            String exMsg = "";
+            for (int i = 0; i < negativeNumbers.size(); i++) {
+                Integer negativeNumber = negativeNumbers.get(i);
+                exMsg += negativeNumber;
+                if (i != negativeNumbers.size() - 1)
+                    exMsg += ", ";
+            }
+            throw new MalformedParametersException(String.format(ExceptionsMessages.PARAMETERS_NEGATIVES_NOT_ALLOWED, exMsg));
+        }
 
         int result = 0;
 
-        for (String currentNrStr : splitted) {
-            int nr = tryParseInt(currentNrStr);
-            result += nr;
-        }
+        for (int nr : numbersToAdd) result += nr;
+
+        return result;
+    }
+
+    private List<Integer> getNumbersToAdd(String parameters) {
+        List<Integer> result = new ArrayList<>();
+        String[] splitted = getSplittedParameters(parameters);
+
+        for (String currentNrStr : splitted) result.add(tryParseInt(currentNrStr));
 
         return result;
     }
