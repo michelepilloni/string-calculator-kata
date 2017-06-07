@@ -1,5 +1,8 @@
 package srl.paros.stringcalc;
 
+import srl.paros.stringcalc.exceptions.ExceptionsMessages;
+import srl.paros.stringcalc.exceptions.MalformedParametersException;
+
 /**
  * Created by michele.pilloni on 07/06/2017.
  */
@@ -12,16 +15,24 @@ public class StringCalculator {
         String[] splitted = numbers.split(",");
 
         if (splitted.length > 2)
-            throw new RuntimeException("The addition of more than two numbers is not supported");
+            throw new MalformedParametersException(ExceptionsMessages.PARAMETERS_NR_GT_2);
 
         int result = 0;
 
         for (String currentNrStr : splitted) {
-            int nr = Integer.parseInt(currentNrStr);
+            int nr = tryParseInt(currentNrStr);
             result += nr;
         }
 
         return result;
+    }
+
+    private int tryParseInt(String currentNrStr) {
+        try {
+            return Integer.parseInt(currentNrStr);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
 }
