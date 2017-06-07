@@ -38,8 +38,10 @@ public class StringCalculatorTest {
         assertEquals(1 + 2, result);
     }
 
-    @Test(expected = RuntimeException.class)
-    public void whenMoreThanTwoParametersThrowException() throws Exception {
-        int result = stringCalculator.add("1,2,3");
+    @Test
+    public void moreThanTwoNumbersAddition() {
+        int result = stringCalculator.add("1,9,6,7,3");
+
+        assertEquals(1 + 9 + 6 + 7 + 3, result);
     }
 }
