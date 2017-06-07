@@ -62,12 +62,16 @@ public class StringCalculatorTest {
     }
 
     @Test(expected = MalformedParametersException.class)
+    public void dontAllowNegatives() {
+        stringCalculator.add("//;\n1;-2;-9;-7");
+    }
+
+    @Test
     public void dontAllowNegativesAndPrintNegativesInExceptionMessage() {
         try {
             stringCalculator.add("//;\n1;-2;-9;-7");
         } catch (Exception e) {
             assertEquals(String.format(ExceptionsMessages.PARAMETERS_NEGATIVES_NOT_ALLOWED, "-2, -9, -7"), e.getMessage());
-            throw e;
         }
     }
 }
