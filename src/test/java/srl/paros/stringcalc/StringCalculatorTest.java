@@ -51,4 +51,11 @@ public class StringCalculatorTest {
 
         assertEquals(1 + 2 + 3 + 7 + 8 + 9 + 5, result);
     }
+
+    @Test
+    public void supportAlsoCustomDelimiters() {
+        int result = stringCalculator.add("//;\n1;2;9;7");
+
+        assertEquals(1 + 2 + 9 + 7, result);
+    }
 }
