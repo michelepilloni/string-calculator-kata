@@ -2,8 +2,9 @@ package srl.paros.stringcalc;
 
 import org.junit.Before;
 import org.junit.Test;
-import srl.paros.stringcalc.exceptions.ExceptionsMessages;
-import srl.paros.stringcalc.exceptions.MalformedParametersException;
+import srl.paros.stringcalc.exceptions.NegativeNumbersNotAllowedException;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -61,7 +62,7 @@ public class StringCalculatorTest {
         assertEquals(1 + 2 + 9 + 7, result);
     }
 
-    @Test(expected = MalformedParametersException.class)
+    @Test(expected = NegativeNumbersNotAllowedException.class)
     public void dontAllowNegatives() {
         stringCalculator.add("//;\n1;-2;-9;-7");
     }
@@ -71,7 +72,12 @@ public class StringCalculatorTest {
         try {
             stringCalculator.add("//;\n1;-2;-9;-7");
         } catch (Exception e) {
-            assertEquals(String.format(ExceptionsMessages.PARAMETERS_NEGATIVES_NOT_ALLOWED, "-2, -9, -7"), e.getMessage());
+            NegativeNumbersNotAllowedException nnnae = new NegativeNumbersNotAllowedException(new ArrayList<Integer>() {{
+                add(-2);
+                add(-9);
+                add(-7);
+            }});
+            assertEquals(nnnae.getMessage(), e.getMessage());
         }
     }
 }

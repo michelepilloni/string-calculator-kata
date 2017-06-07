@@ -1,7 +1,6 @@
 package srl.paros.stringcalc;
 
-import srl.paros.stringcalc.exceptions.ExceptionsMessages;
-import srl.paros.stringcalc.exceptions.MalformedParametersException;
+import srl.paros.stringcalc.exceptions.NegativeNumbersNotAllowedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +23,7 @@ public class StringCalculator {
 
         List<Integer> negativeNumbers = numbersToAdd.stream().filter(nr -> nr < 0).collect(Collectors.toList());
 
-        if (!negativeNumbers.isEmpty()) {
-            String exMsg = "";
-            for (int i = 0; i < negativeNumbers.size(); i++) {
-                Integer negativeNumber = negativeNumbers.get(i);
-                exMsg += negativeNumber;
-                if (i != negativeNumbers.size() - 1)
-                    exMsg += ", ";
-            }
-            throw new MalformedParametersException(String.format(ExceptionsMessages.PARAMETERS_NEGATIVES_NOT_ALLOWED, exMsg));
-        }
+        if (!negativeNumbers.isEmpty()) throw new NegativeNumbersNotAllowedException(negativeNumbers);
 
         int result = 0;
 
