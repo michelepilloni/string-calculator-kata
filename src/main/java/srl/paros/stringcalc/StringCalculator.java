@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 public class StringCalculator {
 
-    private final static String DEFAULT_DELIMITERS = ",|\n";
+    private final static String DEFAULT_DELIMITERS_REGEX = ",|\n";
     private final static String CUSTOM_DELIMITER_START_TOKEN = "//";
     private final static String CUSTOM_DELIMITER_END_TOKEN = "\n";
     private final static int IGNORE_THRESHOLD = 1000;
@@ -49,12 +49,11 @@ public class StringCalculator {
 
     private String[] getSplittedParameters(String parameters) {
         if (!parameters.startsWith(CUSTOM_DELIMITER_START_TOKEN))
-            return parameters.split(DEFAULT_DELIMITERS);
+            return parameters.split(DEFAULT_DELIMITERS_REGEX);
 
         String delimiterPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_START_TOKEN) + CUSTOM_DELIMITER_START_TOKEN.length(), parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN));
         String numbersPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN) + CUSTOM_DELIMITER_END_TOKEN.length());
-        String[] result = numbersPart.split(delimiterPart);
-        return result;
+        return numbersPart.split(delimiterPart);
     }
 
     private int tryParseInt(String currentNrStr) {
