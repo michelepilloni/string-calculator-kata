@@ -14,6 +14,7 @@ public class StringCalculator {
     private final static String DEFAULT_DELIMITERS = ",|\n";
     private final static String CUSTOM_DELIMITER_START_TOKEN = "//";
     private final static String CUSTOM_DELIMITER_END_TOKEN = "\n";
+    private final static int IGNORE_THRESHOLD = 1000;
 
     public int add(String parameters) {
         if (parameters == null || parameters.isEmpty())
@@ -27,7 +28,12 @@ public class StringCalculator {
 
         int result = 0;
 
-        for (int nr : numbersToAdd) result += nr;
+        for (int nr : numbersToAdd) {
+            if (nr > IGNORE_THRESHOLD)
+                continue;
+
+            result += nr;
+        }
 
         return result;
     }
