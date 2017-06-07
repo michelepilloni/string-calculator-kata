@@ -9,7 +9,7 @@ public class StringCalculator {
         if (numbers == null || numbers.isEmpty())
             return 0;
 
-        String[] splitted = numbers.split(",");
+        String[] splitted = numbers.split(",|\n");
 
         int result = 0;
 
