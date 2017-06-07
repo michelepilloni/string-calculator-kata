@@ -6,6 +6,8 @@ package srl.paros.stringcalc;
 public class StringCalculator {
 
     private final static String DEFAULT_DELIMITERS = ",|\n";
+    private final static String CUSTOM_DELIMITER_START_TOKEN = "//";
+    private final static String CUSTOM_DELIMITER_END_TOKEN = "\n";
 
     public int add(String numbers) {
         if (numbers == null || numbers.isEmpty())
@@ -24,11 +26,11 @@ public class StringCalculator {
     }
 
     private String[] getSplittedParameters(String parameters) {
-        if (!parameters.startsWith("//"))
+        if (!parameters.startsWith(CUSTOM_DELIMITER_START_TOKEN))
             return parameters.split(DEFAULT_DELIMITERS);
 
-        String delimiterPart = parameters.substring(parameters.indexOf("//") + "//".length(), parameters.indexOf("\n"));
-        String numbersPart = parameters.substring(parameters.indexOf("\n") + "\n".length());
+        String delimiterPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_START_TOKEN) + CUSTOM_DELIMITER_START_TOKEN.length(), parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN));
+        String numbersPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN) + CUSTOM_DELIMITER_END_TOKEN.length());
         String[] result = numbersPart.split(delimiterPart);
         return result;
     }
