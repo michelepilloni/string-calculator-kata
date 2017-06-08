@@ -1,5 +1,7 @@
 package srl.paros.stringcalc;
 
+import srl.paros.stringcalc.exceptions.ExceptionsMessages;
+import srl.paros.stringcalc.exceptions.MalformedParametersException;
 import srl.paros.stringcalc.exceptions.NegativeNumbersNotAllowedException;
 
 import java.util.ArrayList;
@@ -52,8 +54,12 @@ public class StringCalculator {
         if (!parameters.startsWith(CUSTOM_DELIMITER_START_TOKEN))
             return parameters.split(DEFAULT_DELIMITERS_REGEX);
 
-        String delimiterPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_START_TOKEN) + CUSTOM_DELIMITER_START_TOKEN.length(), parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN));
-        String numbersPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN) + CUSTOM_DELIMITER_END_TOKEN.length());
+        int endTokenIndex = parameters.indexOf(CUSTOM_DELIMITER_END_TOKEN);
+        if (endTokenIndex < 0)
+            throw new MalformedParametersException(ExceptionsMessages.PARAMETERS_CUSTOM_DELIMITER_SEPARATOR_END_TOKEN_MISSING);
+
+        String delimiterPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_START_TOKEN) + CUSTOM_DELIMITER_START_TOKEN.length(), endTokenIndex);
+        String numbersPart = parameters.substring(endTokenIndex + CUSTOM_DELIMITER_END_TOKEN.length());
         return numbersPart.split(delimiterPart);
     }
 
