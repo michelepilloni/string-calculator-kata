@@ -4,6 +4,7 @@ import srl.paros.stringcalc.exceptions.NegativeNumbersNotAllowedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
@@ -61,6 +62,32 @@ public class StringCalculator {
             return Integer.parseInt(currentNrStr);
         } catch (NumberFormatException e) {
             return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Please input numbers separated by ',' or '\\n'." +
+                    "\n" +
+                    "To specify a custom separator enclose it between // and \\n at the beginning (//[delimiter]\\n[numbers...])");
+
+            String userInput = scanner.nextLine();
+
+            if ("quit".equals(userInput.trim()) || "exit".equals(userInput.trim())) {
+                System.out.println("Bye");
+                break;
+            }
+
+            performStringCalculation(userInput.replace("\\n", "\n"));
+        }
+    }
+
+    private static void performStringCalculation(String line) {
+        try {
+            System.out.printf("result: %s\n", new StringCalculator().add(line));
+        } catch (Exception e) {
+            System.out.printf("error computing result: %s\n", e.getMessage());
         }
     }
 }
