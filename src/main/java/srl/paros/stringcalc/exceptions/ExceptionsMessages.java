@@ -7,4 +7,5 @@ public class ExceptionsMessages {
     public final static String PARAMETERS_NR_GT_2 = "The addition of more than two numbers is not supported";
     public final static String PARAMETERS_NEGATIVES_NOT_ALLOWED = "Negatives not allowed: %s";
     public final static String PARAMETERS_CUSTOM_DELIMITER_SEPARATOR_END_TOKEN_MISSING = "Missing end token separator \\n for custom delimiter";
+    public final static String PARAMETERS_CUSTOM_DELIMITER_MISSING = "Custom delimiter string is missing";
 }

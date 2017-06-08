@@ -60,6 +60,10 @@ public class StringCalculator {
 
         String delimiterPart = parameters.substring(parameters.indexOf(CUSTOM_DELIMITER_START_TOKEN) + CUSTOM_DELIMITER_START_TOKEN.length(), endTokenIndex);
         String numbersPart = parameters.substring(endTokenIndex + CUSTOM_DELIMITER_END_TOKEN.length());
+
+        if (delimiterPart.isEmpty())
+            throw new MalformedParametersException(ExceptionsMessages.PARAMETERS_CUSTOM_DELIMITER_MISSING);
+
         return numbersPart.split(delimiterPart);
     }
 
